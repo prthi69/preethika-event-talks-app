@@ -554,12 +554,13 @@ h1, h2, h3, h4 {
 /* Card Action Panel */
 .note-actions {
     display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-end;
+    flex-direction: row;
+    gap: 0.5rem;
+    justify-content: flex-end;
+    align-items: flex-start;
 }
 
-.btn-card-tweet {
+.btn-card-copy, .btn-card-tweet {
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid var(--border-color);
     color: var(--text-secondary);
@@ -572,6 +573,13 @@ h1, h2, h3, h4 {
     justify-content: center;
 }
 
+.btn-card-copy:hover {
+    background: rgba(139, 92, 246, 0.1);
+    color: #c084fc;
+    border-color: rgba(139, 92, 246, 0.3);
+    transform: scale(1.05);
+}
+
 .btn-card-tweet:hover {
     background: rgba(29, 155, 240, 0.1);
     color: #1d9bf0;
@@ -579,7 +587,7 @@ h1, h2, h3, h4 {
     transform: scale(1.05);
 }
 
-.btn-card-tweet svg {
+.btn-card-copy svg, .btn-card-tweet svg {
     width: 16px;
     height: 16px;
 }
