@@ -53,6 +53,7 @@ const elements = {
 
 // Initialize App
 document.addEventListener('DOMContentLoaded', () => {
+    initTheme();
     fetchReleases(false);
     setupEventListeners();
     initProgressRing();
@@ -625,4 +626,35 @@ function exportReleasesToCSV() {
     link.click();
     document.body.removeChild(link);
     URL.revokeObjectURL(url);
+}
+
+// Light/Dark Theme Initialization and Toggle
+function initTheme() {
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
+    const sunIcon = themeToggleBtn.querySelector('.theme-icon-sun');
+    const moonIcon = themeToggleBtn.querySelector('.theme-icon-moon');
+    
+    // Load persisted theme
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    if (savedTheme === 'light') {
+        document.body.classList.add('light-theme');
+        sunIcon.style.display = 'none';
+        moonIcon.style.display = 'block';
+    }
+    
+    // Bind click handler
+    themeToggleBtn.addEventListener('click', () => {
+        const isLightTheme = document.body.classList.toggle('light-theme');
+        if (isLightTheme) {
+            localStorage.setItem('theme', 'light');
+            sunIcon.style.display = 'none';
+            moonIcon.style.display = 'block';
+            showToast("Switched to Light Mode!", "success");
+        } else {
+            localStorage.setItem('theme', 'dark');
+            sunIcon.style.display = 'block';
+            moonIcon.style.display = 'none';
+            showToast("Switched to Dark Mode!", "success");
+        }
+    });
 }
