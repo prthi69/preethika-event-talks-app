@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BigQuery Pulse | Release Notes & Tweet Share Hub</title>
+    <meta name="description" content="Stay updated with the latest Google Cloud BigQuery release notes. Easily filter, search, select updates, and tweet about features and fixes instantly.">
+    <!-- Google Fonts: Inter and Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%25238b5cf6'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z'/%3E%3C/svg%3E">
+</head>
+<body>
+    <!-- Background glow meshes -->
+    <div class="glow-mesh-1"></div>
+    <div class="glow-mesh-2"></div>
+
+    <header class="main-header" id="appHeader">
+        <div class="header-container">
+            <div class="brand">
+                <div class="brand-icon">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" fill="url(#brandGlow)" opacity="0.15"/>
+                        <path d="M16.5 13V15.5M16.5 15.5V18M16.5 15.5H19M16.5 15.5H14" stroke="url(#accentGrad)" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M6 8.5C6 7.67157 7.79086 7 10 7C12.2091 7 14 7.67157 14 8.5M6 8.5C6 9.32843 7.79086 10 10 10C12.2091 10 14 9.32843 14 8.5M6 8.5V15.5C6 16.3284 7.79086 17 10 17C10.74 17 11.4334 16.9242 12 16.7917M14 8.5V11.5M6 12C6 12.8284 7.79086 13.5 10 13.5C10.74 13.5 11.4334 13.4242 12 13.2917" stroke="url(#brandGrad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <defs>
+                            <linearGradient id="brandGrad" x1="6" y1="7" x2="16.5" y2="18" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#8b5cf6"/>
+                                <stop offset="1" stop-color="#3b82f6"/>
+                            </linearGradient>
+                            <linearGradient id="accentGrad" x1="14" y1="13" x2="19" y2="18" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#ec4899"/>
+                                <stop offset="1" stop-color="#8b5cf6"/>
+                            </linearGradient>
+                            <linearGradient id="brandGlow" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#8b5cf6"/>
+                                <stop offset="1" stop-color="#ec4899"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <div class="brand-text">
+                    <h1>BigQuery <span>Pulse</span></h1>
+                    <p class="brand-tagline">Real-time Release Feed</p>
+                </div>
+            </div>
+            
+            <div class="header-actions">
+                <button id="refreshBtn" class="btn btn-secondary" aria-label="Refresh release notes" title="Refresh Feed">
+                    <svg class="spinner-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 4V9H4.582M19.938 11C19.75 7.64 17.58 4.79 14.5 3.65M20 20V15H19.418M4.062 13C4.25 16.36 6.42 19.21 9.5 20.35M20 15H15M4 9H9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>Refresh</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content" id="appMain">
+        <!-- Dashboard Toolbar -->
+        <section class="toolbar-section">
+            <div class="search-bar">
+                <div class="search-input-wrapper">
+                    <svg class="search-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <input type="text" id="searchInput" placeholder="Search keywords (e.g. Gemini, SQL, partition)..." aria-label="Search release notes">
+                    <button id="clearSearchBtn" class="clear-search-btn" style="display: none;" aria-label="Clear search">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="filter-pills" id="filterPillsContainer">
+                <button class="pill active" data-filter="all">All Updates</button>
+                <button class="pill" data-filter="feature">Features</button>
+                <button class="pill" data-filter="fix">Fixes</button>
+                <button class="pill" data-filter="other">Other Updates</button>
+            </div>
+        </section>
+
+        <!-- Releases Feed Section -->
+        <section class="feed-section">
+            <div class="feed-status" id="feedStatus">
+                <span class="pulse-indicator"></span>
+                <span id="lastUpdatedText">Checking feed...</span>
+            </div>
+
+            <!-- Skeleton Loaders -->
+            <div class="skeleton-container" id="skeletonContainer">
+                <div class="skeleton-card"></div>
+                <div class="skeleton-card"></div>
+                <div class="skeleton-card"></div>
+            </div>
+
+            <!-- Empty State -->
+            <div class="empty-state" id="emptyState" style="display: none;">
+                <div class="empty-state-icon">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <h3>No Release Notes Found</h3>
+                <p>We couldn't find any updates matching your search query or filters. Try adjusting them!</p>
+                <button id="resetFiltersBtn" class="btn btn-primary">Clear Filters</button>
+            </div>
+
+            <!-- Actual Notes List -->
+            <div class="notes-timeline" id="notesTimeline" style="display: none;">
+                <!-- Dynamically populated release notes go here -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Floating Selection Drawer (appears when items are selected) -->
+    <div class="selection-drawer" id="selectionDrawer">
+        <div class="drawer-content">
+            <div class="selection-details">
+                <span class="count-badge" id="selectedCountBadge">0</span>
+                <span class="drawer-text" id="selectedCountText">updates selected</span>
+            </div>
+            <div class="drawer-actions">
+                <button id="clearSelectionBtn" class="btn btn-link">Clear Selection</button>
+                <button id="tweetSelectedBtn" class="btn btn-primary">
+                    <svg viewBox="0 0 24 24" class="btn-icon" fill="currentColor">
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                    </svg>
+                    <span>Tweet Selected</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tweet Composer Modal -->
+    <div class="modal-backdrop" id="tweetModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" style="display: none;">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2 id="modalTitle">Draft Your Tweet</h2>
+                <button id="closeModalBtn" class="close-modal-btn" aria-label="Close modal">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="draft-notice" id="draftNotice">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="notice-icon">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                    </svg>
+                    <span id="draftNoticeText">Tweeting multiple updates will compile them into a combined list!</span>
+                </div>
+                
+                <div class="tweet-textarea-wrapper">
+                    <textarea id="tweetTextArea" maxlength="1000" rows="6" placeholder="What's happening?"></textarea>
+                    <div class="tweet-textarea-footer">
+                        <div class="character-counter-wrapper">
+                            <svg class="progress-ring" width="30" height="30">
+                                <circle class="progress-ring__circle-bg" stroke="rgba(255,255,255,0.1)" stroke-width="2" fill="transparent" r="12" cx="15" cy="15"/>
+                                <circle class="progress-ring__circle" id="progressCircle" stroke="#8b5cf6" stroke-width="2.5" fill="transparent" r="12" cx="15" cy="15"/>
+                            </svg>
+                            <span id="charCounter" class="char-counter">280</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="intent-options">
+                    <p class="section-title">Tweet Preview Layout</p>
+                    <div class="layout-toggle-group">
+                        <button class="layout-btn active" id="layoutBtnBullet">Bullet Points</button>
+                        <button class="layout-btn" id="layoutBtnCompact">Compact Summary</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="cancelModalBtn" class="btn btn-secondary">Cancel</button>
+                <button id="postTweetBtn" class="btn btn-primary">
+                    <svg viewBox="0 0 24 24" class="btn-icon" fill="currentColor">
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                    </svg>
+                    <span>Launch X / Twitter</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- JavaScript Bundle -->
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
